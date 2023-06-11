@@ -1,7 +1,8 @@
+/* Display current date and time every second */
 
 function refresh_current_time() {
   var refresh=1000; // Refresh rate in milli seconds
-  mytime=setTimeout('display_current_time()',refresh)
+  setTimeout('display_current_time()',refresh)
 }
 
 function display_current_time() {
@@ -9,4 +10,3 @@ function display_current_time() {
   refresh_current_time();
 }
 
-display_current_time();
