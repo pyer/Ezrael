@@ -11,7 +11,7 @@ class Routes
       "User-agent: * Disallow: /"
     end
     get "/" do
-      File.read("resources/index.html")
+      File.read("resources/index.html").sub("VERSION", VERSION)
     end
     get "/favicon.ico" do
       File.read("resources/favicon32.png")

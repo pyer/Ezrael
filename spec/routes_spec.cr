@@ -1,5 +1,6 @@
 require "spec"
 require "../src/routes"
+require "../src/version.cr"
 
 describe Routes do
 
