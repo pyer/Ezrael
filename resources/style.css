@@ -4,12 +4,6 @@
           box-sizing: inherit;
 }
 
-/*
-@font-face {
-  unicode-range: U+002500-0025FF, U+01F300-01F5FF;
-}
-*/
-
 html {
 /*  font-family: "Roboto Mono";
 */
@@ -42,42 +36,12 @@ html {
 }
 */
 
-/*********************************
-  normalize.css v7.0.0
-  MIT License
-  github.com/necolas/normalize.css
-**********************************/
-/* Document
- * --------
- * 1. Correct the line height in all browsers.
- * 2. Prevent adjustments of font size after orientation changes in
- *    IE on Windows Phone and in iOS.
- */
-html {
-  line-height: 1.15;
-  /* 1 */
-  -ms-text-size-adjust: 100%;
-  /* 2 */
-  -webkit-text-size-adjust: 100%;
-}
-
 /* Sections
  * --------
- * Remove the margin in all browsers (opinionated).
  */
-body {
-  margin: 0;
-}
-
-/**
- * Add the correct display in IE 9-.
- */
-article,
-aside,
-footer,
-header,
-nav,
 section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   display: block;
 }
 
@@ -90,20 +54,6 @@ h1 {
   margin: 0.67em 0;
 }
 
-i {
-  font-style: normal;
-}
-
-/* Grouping content
- * Add the correct display in IE 9-.
- * 1. Add the correct display in IE.
- */
-figcaption,
-figure,
-main {
-  /* 1 */
-  display: block;
-}
 
 /*******************
   Utility classes
@@ -135,42 +85,9 @@ main {
 /*******************
   Application classes
 *******************/
-.main .tree {
-  width: 100%;
-  margin-left: auto;
-  left: auto;
-  right: auto;
-  float: left;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0 0.75rem;
-  min-height: 1px;
-}
-
-/*
-@media only screen and (min-width: 601px) {
-  .main .tree {
-    width: 33.3333333333%;
-    margin-left: auto;
-    left: auto;
-    right: auto;
-  }
-}
-*/
-
-.tree {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-}
-
-.tree:after {
-  content: "";
-  display: table;
-  clear: both;
-}
 
 .container {
+  border: solid;
   margin: 0 auto;
   max-width: 1280px;
   width: 90%;
@@ -190,24 +107,6 @@ main {
 }
 */
 
-.section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.section.no-pad {
-  padding: 0;
-}
-
-.section.no-pad-bot {
-  padding-bottom: 0;
-}
-
-.section.no-pad-top {
-  padding-top: 0;
-}
-
-
 /* File */
 .file {
   position: relative;
@@ -222,38 +121,12 @@ main {
 
 /* Folder */
 .folder {
-  display: block;
-}
-.folder-header {
   position: relative;
+  display: block;
   cursor: pointer;
-  /* z-index: 999; */
 }
 
-.folder-header:hover {
+.folder:hover {
   background-color: #ccc;
-}
-.folder > ul {
-  padding-left: 1em;
-  margin: 0;
-}
-
-/* Tree View */
-#treeView {
-  padding-top: 2em;
-  padding-right: 0.1em;
-  padding-bottom: 3em;
-  overflow: auto;
-  white-space: nowrap;
-}
-#treeView span {
-  display: inline-flex;
-  vertical-align: middle;
-  padding-left: 0.3em;
-  font-size: 1.1rem;
-}
-#treeView i {
-  display: inline-flex;
-  vertical-align: middle;
 }
 

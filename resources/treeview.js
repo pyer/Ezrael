@@ -1,84 +1,5 @@
 
-/* My react-clone mini library */
-
-function appendChildren(parent, children) {
-  for (let child of children) {
-    if (!child) continue;
-    switch (typeof child) {
-      case "string":
-        const el = document.createTextNode(child);
-        parent.appendChild(el);
-        break;
-      default:
-        parent.appendChild(child);
-        break;
-    }
-  }
-}
-
-function setStyle(el, style) {
-  if (typeof style == "string") {
-    el.setAttribute("style", style);
-  } else {
-    Object.assign(el.style, style);
-  }
-}
-
-function setClass(el, className) {
-  className.split(/\s/).forEach(element => {
-    if (element) {
-      el.classList.add(element);
-    }
-  });
-}
-
-function setProps(el, props) {
-  const eventRegex = /^on([a-z]+)$/i;
-  for (let propName in props) {
-    if (!propName) continue;
-
-    if (propName === "style") {
-      setStyle(el, props[propName]);
-    } else if (propName === "className") {
-      setClass(el, props[propName]);
-    } else if (eventRegex.test(propName)) {
-      const eventToListen = propName.replace(eventRegex, "$1").toLowerCase();
-      el.addEventListener(eventToListen, props[propName]);
-    } else {
-      el.setAttribute(propName, props[propName]);
-    }
-  }
-}
-
-//type, [props], [...children] 
-function createElement(type, props, ...children) {
-  if (typeof type === "function") {
-    return type(props);
-  } else {
-    const el = document.createElement(type);
-    if (props && typeof props === "object") {
-      setProps(el, props);
-    }
-    if (children) {
-      appendChildren(el, children);
-    }
-    return el;
-  }
-}
-
-/* shorthand functions */
-const div     = (props, ...children) => createElement("div", props, ...children);
-const ul      = (props, ...children) => createElement("ul", props, ...children);
-const li      = (props, ...children) => createElement("li", props, ...children);
-const i       = (props, ...children) => createElement("i", props, ...children);
-const span    = (props, ...children) => createElement("span", props, ...children);
-const header  = (props, ...children) => createElement("header", props, ...children);
-const p       = (props, ...children) => createElement("p", props, ...children);
-const section = (props, ...children) => createElement("section", props, ...children);
-const button  = (props, ...children) => createElement("button", props, ...children);
-
 /* Icons */
-
 const closedFolderIcon = "\u{01F4C1}";
 const openedFolderIcon = "\u{01F4C2}";
 const closedArrowIcon  = "\u{0021E8}";
@@ -91,82 +12,63 @@ const openedArrowIcon  = "\u{0021E9}";
 const documentIcon     = "\u{01F5D2}";
 
 
-/* File */
-
-const File = ({ name }) => {
-  return div(
-    { className: "file" },
-    i({ className: "file-icons" }, documentIcon),
-    span(null, name)
-  );
-};
-
-/* Folder */
-
+/* Open and close folder */
 function changeOpened(event) {
-  const folderHeader = event.target.classList.contains("folder-header")
-    ? event.target
-    : event.target.parentElement;
-  const opened = folderHeader.getAttribute("opened") == "true";
-  const newOpened = !opened;
-
-  folderHeader.querySelectorAll(".arrow-icons").forEach(icon => {
-    icon.textContent = newOpened ? openedArrowIcon : closedArrowIcon;
-  });
-  folderHeader.querySelectorAll(".folder-icons").forEach(icon => {
-    icon.textContent = newOpened ? openedFolderIcon : closedFolderIcon;
-  });
-
+  const header = event.target;
+  const folder = header.firstElementChild;
   try {
-    const sibling = folderHeader.nextElementSibling;
-    if (newOpened) {
-      sibling.classList.remove("hide");
+    const folderName = header.firstChild.nodeValue.substring(1);
+    if (folder.classList.contains("hide")) {
+      folder.classList.remove("hide");
+      header.firstChild.nodeValue = openedArrowIcon + folderName;
     } else {
-      sibling.classList.add("hide");
+      folder.classList.add("hide");
+      header.firstChild.nodeValue = closedArrowIcon + folderName;
     }
   } catch (e) {
-    console.warn(`No sibling of elem ${folderHeader} found ...`);
+    console.warn("Folder is empty");
   }
-
-  folderHeader.setAttribute("opened", newOpened);
 }
 
-const Folder = (props, ...children) => {
-  const opened = props.opened || false;
-  const arrowIcon = opened ? openedArrowIcon : closedArrowIcon;
-  const folderIcon = opened ? openedFolderIcon : closedFolderIcon;
-  const folderName = props.name || "unknown";
+/* Parsing the branches of the tree */
+function to_ul(branches) {
+  var ul = document.createElement("ul");
+  for (var i = 0, n = branches.length; i < n; i++) {
+    var li = document.createElement("li");
+    var branch = branches[i];
+    if (branch.branches) {
+      li.classList.add("folder");
+      li.addEventListener("click", changeOpened);
+      li.appendChild(document.createTextNode(openedArrowIcon + closedFolderIcon + branch.name));
+      li.appendChild(to_ul(branch.branches));
+    } else {
+      li.classList.add("file");
+      li.appendChild(document.createTextNode(documentIcon + branch.name));
+    }
+    ul.appendChild(li);
+  }
+  return ul;
+}
 
-  return div(
-    { className: "folder" },
-    header(
-      {
-        onClick: changeOpened,
-        className: "folder-header",
-        opened: opened
-      },
-      i({ className: "arrow-icons" }, arrowIcon),
-      i({ className: "folder-icons" }, folderIcon),
-      span(null, folderName)
-    ),
-    ul({ className: opened ? "" : "hide" }, ...children)
-  );
-};
+/* Get JSON data from server */
+const getJSON = async url => {
+  const response = await fetch(url);
+  if(!response.ok) // check if response worked (no 404 errors etc...)
+    throw new Error(response.statusText);
+  const data = response.json(); // get JSON from the response
+  return data; // returns a promise, which resolves to this data value
+}
 
-/* TreeView */
-
-const TreeView = () => {
-  return section(
-    { className: "container" },
-    Folder(
-      { name: "src" },
-      Folder({ name: "myTest.js" }, File({ name: "whatup.js" })),
-      File({ name: "justASimpleFile.css" })
-    ),
-    File({ name: "project.json" })
-  );
-};
-
-const app = document.querySelector("#treeView");
-app.appendChild(createElement(TreeView));
+/* Main entry */
+console.log("Start");
+getJSON(location.href + "files").then(result => {
+      console.log("Parsing data...");
+      console.log(result);
+      const app = document.getElementById("treeView");
+      app.appendChild(to_ul(result.branches));
+      console.log("Done");
+  }).catch(error => {
+    console.error(error);
+  });
+console.log("End");
 

@@ -4,5 +4,8 @@
 tmp/
 
 # Crystal output
-Ezrael
+ezrael
+
+# Default root path
+files
 

@@ -3,25 +3,29 @@ class FilesTree
 
   @json = ""
 
-  def list(dir)
-    Dir.each(dir) { |x|
-      unless x.starts_with?(".")
-        if File.directory?(x)
-          @json += "{\"" + x + "\":["
-          list(dir + "/" + x)
+  def list(dirname)
+    Dir.open(dirname) do |dir|
+      dir.children.sort.each do |child|
+        info = File.info "#{dirname}/#{child}"
+        if info.directory?
+          puts "Folder " + child
+          @json += "{\"name\": \"" + child + "\", \"branches\": ["
+          list("#{dirname}/#{child}")
           @json = @json.chomp(',') + "]},"
         else
-          @json += "\"" + x + "\","
+          puts "File " + child
+          @json += "{\"name\": \"" + child + "\"},"
         end
       end
-    }
+    end
   end
 
+#    puts "%-50s %10s %24s" % { child, info.size.format, info.modification_time }
+
   def get_json_tree(root)
-    @json = "{\"files\": ["
+    @json = "{\"name\": \"trunk\", \"branches\": ["
     list(root)
     @json.chomp(',') + "]}"
   end
   
 end
-
