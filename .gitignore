@@ -1,0 +1,7 @@
+# Generic files to ignore
+*~
+tmp/
+
+# Crystal output
+Ezrael
+
