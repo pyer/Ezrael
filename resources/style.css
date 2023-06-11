@@ -4,15 +4,25 @@
           box-sizing: inherit;
 }
 
+/*
+@font-face {
+  unicode-range: U+002500-0025FF, U+01F300-01F5FF;
+}
+*/
+
 html {
-  line-height: 1.5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+/*  font-family: "Roboto Mono";
+*/
+  font-family: "Courier New";
   font-weight: normal;
+  font-style: normal;
+  line-height: 1.5;
   color: rgba(0, 0, 0, 0.87);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
+/*
 @media only screen and (min-width: 0) {
   html {
     font-size: 14px;
@@ -30,12 +40,15 @@ html {
     font-size: 15px;
   }
 }
+*/
 
-
-/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
+/*********************************
+  normalize.css v7.0.0
+  MIT License
+  github.com/necolas/normalize.css
+**********************************/
 /* Document
-   ========================================================================== */
-/**
+ * --------
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in
  *    IE on Windows Phone and in iOS.
@@ -49,8 +62,7 @@ html {
 }
 
 /* Sections
-   ========================================================================== */
-/**
+ * --------
  * Remove the margin in all browsers (opinionated).
  */
 body {
@@ -78,9 +90,11 @@ h1 {
   margin: 0.67em 0;
 }
 
+i {
+  font-style: normal;
+}
+
 /* Grouping content
-   ========================================================================== */
-/**
  * Add the correct display in IE 9-.
  * 1. Add the correct display in IE.
  */
@@ -133,6 +147,7 @@ main {
   min-height: 1px;
 }
 
+/*
 @media only screen and (min-width: 601px) {
   .main .tree {
     width: 33.3333333333%;
@@ -141,6 +156,7 @@ main {
     right: auto;
   }
 }
+*/
 
 .tree {
   margin-left: auto;
@@ -160,6 +176,7 @@ main {
   width: 90%;
 }
 
+/*
 @media only screen and (min-width: 601px) {
   .container {
     width: 85%;
@@ -171,6 +188,7 @@ main {
     width: 70%;
   }
 }
+*/
 
 .section {
   padding-top: 1rem;
@@ -195,6 +213,7 @@ main {
   position: relative;
   display: block;
   cursor: pointer;
+  padding-left: 1em;
 }
 
 .file:hover {

@@ -15,6 +15,7 @@ function appendChildren(parent, children) {
     }
   }
 }
+
 function setStyle(el, style) {
   if (typeof style == "string") {
     el.setAttribute("style", style);
@@ -22,6 +23,7 @@ function setStyle(el, style) {
     Object.assign(el.style, style);
   }
 }
+
 function setClass(el, className) {
   className.split(/\s/).forEach(element => {
     if (element) {
@@ -29,6 +31,7 @@ function setClass(el, className) {
     }
   });
 }
+
 function setProps(el, props) {
   const eventRegex = /^on([a-z]+)$/i;
   for (let propName in props) {
@@ -74,24 +77,31 @@ const p       = (props, ...children) => createElement("p", props, ...children);
 const section = (props, ...children) => createElement("section", props, ...children);
 const button  = (props, ...children) => createElement("button", props, ...children);
 
+/* Icons */
+
+const closedFolderIcon = "\u{01F4C1}";
+const openedFolderIcon = "\u{01F4C2}";
+const closedArrowIcon  = "\u{0021E8}";
+const openedArrowIcon  = "\u{0021E9}";
+//const openedArrowIcon  = "\u{002B07}";
+//const openedArrowIcon  = "\u{0025BC}";
+//const closedArrowIcon  = "\u{0025B6}";
+//const closedArrowIcon  = "\u{0027A4}";
+//const documentIcon     = "\u{01F5CE}";
+const documentIcon     = "\u{01F5D2}";
+
+
 /* File */
 
 const File = ({ name }) => {
   return div(
     { className: "file" },
-    i({ className: "material-icons", style: "opacity: 0;" }, "arrow_right"),
-    i({ className: "material-icons" }, "insert_drive_file"),
+    i({ className: "file-icons" }, documentIcon),
     span(null, name)
   );
 };
 
 /* Folder */
-
-const openedFolderIcon = "folder_open";
-const closedFolderIcon = "folder";
-//const closedFolderIcon = "\u01F4C1";
-const openedArrowIcon = "arrow_drop_down";
-const closedArrowIcon = "arrow_right";
 
 function changeOpened(event) {
   const folderHeader = event.target.classList.contains("folder-header")
@@ -100,13 +110,11 @@ function changeOpened(event) {
   const opened = folderHeader.getAttribute("opened") == "true";
   const newOpened = !opened;
 
-  let icons = folderHeader.querySelectorAll(".material-icons");
-  icons.forEach(icon => {
-    if (/arrow/i.test(icon.textContent)) {
-      icon.textContent = newOpened ? openedArrowIcon : closedArrowIcon;
-    } else {
-      icon.textContent = newOpened ? openedFolderIcon : closedFolderIcon;
-    }
+  folderHeader.querySelectorAll(".arrow-icons").forEach(icon => {
+    icon.textContent = newOpened ? openedArrowIcon : closedArrowIcon;
+  });
+  folderHeader.querySelectorAll(".folder-icons").forEach(icon => {
+    icon.textContent = newOpened ? openedFolderIcon : closedFolderIcon;
   });
 
   try {
@@ -137,8 +145,8 @@ const Folder = (props, ...children) => {
         className: "folder-header",
         opened: opened
       },
-      i({ className: "material-icons" }, arrowIcon),
-      i({ className: "material-icons" }, folderIcon),
+      i({ className: "arrow-icons" }, arrowIcon),
+      i({ className: "folder-icons" }, folderIcon),
       span(null, folderName)
     ),
     ul({ className: opened ? "" : "hide" }, ...children)
