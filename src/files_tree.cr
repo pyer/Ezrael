@@ -8,12 +8,10 @@ class FilesTree
       dir.children.sort.each do |child|
         info = File.info "#{dirname}/#{child}"
         if info.directory?
-          puts "Folder " + child
           @json += "{\"name\": \"" + child + "\", \"branches\": ["
           list("#{dirname}/#{child}")
           @json = @json.chomp(',') + "]},"
         else
-          puts "File " + child
           @json += "{\"name\": \"" + child + "\"},"
         end
       end
