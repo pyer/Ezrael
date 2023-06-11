@@ -1,9 +1,8 @@
 #
-VERSION = "0.1.0"
-
 require "http/server"
 require "./application_handler.cr"
 require "./error404_handler.cr"
+require "./version.cr"
 
 puts "Ezrael version " + VERSION
 
