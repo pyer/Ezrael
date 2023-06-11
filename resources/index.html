@@ -12,12 +12,20 @@
   </head>
   <body>
     <section class="menu">
-      <h2>Simple file explorer</h2>
-      <span>Version 0.1.0</span>
+      <strong>Ezrael</strong><sup>Version 0.1.0</sup>
+      <button class="menu-button" id="dice">&#x1F3B2;</button>
+      <form class="menu-form" action="/search.html">
+        <div class="search-form">
+          <input class="search-text" type="text" value="" placeholder="Search" name="query">
+          <button class="search-button">&#x1F50D;</button>
+        </div>
+      </form>
+      <div class="menu-clock" id="clock">clock</div>
     </section>
-    <h2>Files tree</h2>
     <section class="container" id="treeView">
     </section>
-    <script  src="treeview.js"></script>
   </body>
+  <script src="clock.js"></script>
+  <script src="roll_the_dice.js"></script>
+  <script src="treeview.js"></script>
 </html>

@@ -19,11 +19,20 @@ class Routes
     get "/style.css" do
       File.read("resources/style.css")
     end
+    get "/clock.js" do
+      File.read("resources/clock.js")
+    end
+    get "/roll_the_dice.js" do
+      File.read("resources/roll_the_dice.js")
+    end
     get "/treeview.js" do
       File.read("resources/treeview.js")
     end
     get "/files" do
       FilesTree.new.get_json_tree("files")
+    end
+    get "/error404" do
+      File.read("resources/houston404.png")
     end
 
   end

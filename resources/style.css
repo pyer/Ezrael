@@ -1,19 +1,22 @@
 
+/*
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
           box-sizing: inherit;
 }
-
+*/
 html {
 /*  font-family: "Roboto Mono";
 */
-  font-family: "Courier New";
-  font-weight: normal;
-  font-style: normal;
-  line-height: 1.5;
   color: rgba(0, 0, 0, 0.87);
+  font-family: "Courier New";
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.5;
+/*
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+*/
 }
 
 /*
@@ -40,9 +43,11 @@ html {
  * --------
  */
 section {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   display: block;
+  padding-bottom: 1em;
+  padding-top: 1em;
+  position: relative;
+  width: 100%;
 }
 
 /**
@@ -86,8 +91,57 @@ h1 {
   Application classes
 *******************/
 
+.menu {
+  display: flex;
+}
+
+.menu sup {
+  margin-left: 0.5em;
+}
+
+.menu-button {
+  cursor: pointer;
+  margin-left: 2em;
+}
+
+.menu-form {
+  margin-left: 2em;
+}
+
+.menu-clock {
+  border: groove;
+  border-radius: 6px;
+  padding-left:  1em;
+  padding-right: 1em;
+  position: absolute;
+  right: 0;
+}
+
+
+.search-form {
+  border: groove;
+  border-radius: 6px;
+  font-size: 0;
+  margin: 0;
+  width: 200px;
+}
+
+.search-text {
+  background-color: white;
+  border: none;
+  width: 167px;
+}
+
+.search-button {
+  background-color: #F2F2F2;
+  border: none;
+  cursor: pointer;
+}
+
+
 .container {
-  border: solid;
+  border: groove;
+  border-radius: 18px;
   margin: 0 auto;
   max-width: 1280px;
   width: 90%;
@@ -121,12 +175,18 @@ h1 {
 
 /* Folder */
 .folder {
-  position: relative;
-  display: block;
   cursor: pointer;
+  display: block;
+  position: relative;
 }
 
-.folder:hover {
+.folder-name {
+  cursor: pointer;
+  display: block;
+  position: relative;
+}
+
+.folder-name:hover {
   background-color: #ccc;
 }
 
