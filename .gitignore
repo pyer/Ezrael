@@ -1,5 +1,6 @@
 # Generic files to ignore
 *~
+*.swp
 tmp/
 
 # Crystal output

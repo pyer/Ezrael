@@ -1,4 +1,6 @@
 #
+require "./files_tree"
+
 class Routes
   # @routes is a hash where key='method path'
   # the value is the content of the response sent to the client
@@ -11,11 +13,17 @@ class Routes
     get "/" do
       File.read("resources/index.html")
     end
+    get "/favicon.ico" do
+      File.read("resources/favicon32.png")
+    end
     get "/style.css" do
       File.read("resources/style.css")
     end
     get "/treeview.js" do
       File.read("resources/treeview.js")
+    end
+    get "/files" do
+      FilesTree.new.get_json_tree("files")
     end
 
   end
