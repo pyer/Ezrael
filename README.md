@@ -21,3 +21,13 @@ Files and sub-folders are displayed as a tree.
 
 crystal build src/ezrael.cr
 
+
+# Specifications
+
+- Only one font: Courier New
+- Only Unicode characters
+- No glyphicons, no awesome font
+- Server written in Crystal
+- Client uses HTML, CSS and Javascript
+- No Javascript library
+

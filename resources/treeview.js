@@ -9,11 +9,6 @@ const openedFolderIcon = "\u{01F5C2}";
 //const openedArrowIcon  = "\u{002B07}";
 const openedArrowIcon  = "\u{0025BC}";
 const closedArrowIcon  = "\u{0025BA}";
-//const closedArrowIcon  = "\u{0027A4}";
-//const documentIcon     = "\u{01F5CE}";
-//const documentIcon     = "\u{01F5D2}";
-const documentIcon     = "\u{01F4C4}";
-
 
 /* Open and close folder */
 function changeOpened(event) {
@@ -44,8 +39,16 @@ function createFolderName(name) {
   return span;
 }
 
-function createFileName(name) {
-  return document.createTextNode(documentIcon + name);
+function createFileLine(li, file) {
+  li.classList.add("file");
+  const sp1 = document.createElement("span");
+  sp1.classList.add("file-name");
+  sp1.appendChild(document.createTextNode(file.name));
+  li.appendChild(sp1);
+  const sp2 = document.createElement("span");
+  sp2.classList.add("file-size");
+  sp2.appendChild(document.createTextNode(file.size));
+  li.appendChild(sp2);
 }
 
 function to_ul(branches) {
@@ -59,8 +62,7 @@ function to_ul(branches) {
       li.appendChild(createFolderName(branch.name));
       li.appendChild(to_ul(branch.branches));
     } else {
-      li.classList.add("file");
-      li.appendChild(createFileName(branch.name));
+      createFileLine(li, branch);
     }
     ul.appendChild(li);
   }

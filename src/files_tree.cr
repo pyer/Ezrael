@@ -12,7 +12,7 @@ class FilesTree
           list("#{dirname}/#{child}")
           @json = @json.chomp(',') + "]},"
         else
-          @json += "{\"name\": \"" + child + "\"},"
+          @json += "{\"name\": \"" + child + "\", \"size\": \"" + info.size.to_s + "\"},"
         end
       end
     end

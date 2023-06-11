@@ -22,9 +22,6 @@ class Routes
     get "/clock.js" do
       File.read("resources/clock.js")
     end
-    get "/roll_the_dice.js" do
-      File.read("resources/roll_the_dice.js")
-    end
     get "/treeview.js" do
       File.read("resources/treeview.js")
     end
