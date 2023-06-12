@@ -35,11 +35,15 @@ class Routes
   end
 
   def get(path : String, &block : -> String)
-    @routes["GET "+path] = block
+    @routes[path] = block
   end
 
-  def get_call(key : String)
+  def call_get(key : String)
     @routes[key].call
+  end
+
+  def call_delete(path : String)
+    File.delete("."+path)
   end
 
 end

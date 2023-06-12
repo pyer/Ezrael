@@ -137,11 +137,10 @@ h1 {
 
 .file-size {
   float: right;
-  /*
-  display: inline;
-  justify-content: flex-end;
-  text-align: right;
-  */
+}
+
+.file-delete {
+  float: right;
 }
 
 /* Folder */

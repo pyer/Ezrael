@@ -12,10 +12,14 @@ class ApplicationHandler
 
   def call(context : HTTP::Server::Context)
     begin
-      key = context.request.method+" "+context.request.path
       context.response.reset
-      context.response.content_type = Mime.get_type(key)
-      context.response.puts(@routes.get_call(key))
+      if (context.request.method == "GET" )
+        key = context.request.path
+        context.response.content_type = Mime.get_type(key)
+        context.response.puts(@routes.call_get(key))
+      elsif (context.request.method == "DELETE" )
+        context.response.puts(@routes.call_delete(context.request.path))
+      end
     rescue KeyError
       call_next(context)
     end
