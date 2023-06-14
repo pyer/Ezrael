@@ -13,7 +13,7 @@ const closedArrowIcon  = "\u{0025BA}";
 const deleteFileIcon  = "\u{01F5D1}";
 
 /* Open and close folder */
-function changeOpened(event) {
+function changeFolderSight(event) {
   const span = event.target.firstChild;
   const folder = event.target.nextSibling;
   try {
@@ -38,7 +38,7 @@ function createFolderName(name) {
   span.classList.add("folder-name");
   //span.setAttribute("path", "/"+name);
   span.appendChild(document.createTextNode(displayName));
-  span.addEventListener("click", changeOpened);
+  span.addEventListener("click", changeFolderSight);
   return span;
 }
 
@@ -53,6 +53,22 @@ function fileSize(s) {
   else
     size=s.toString()+" B";
   return size;
+}
+
+function downloadFile(evt) {
+  var file = evt.target.parentNode;
+  var path = "/" + file.firstChild.innerText;
+  var folder = file.parentNode;
+  while (folder.getAttribute("path") !== "/") {
+    path = folder.getAttribute("path") + path;
+    folder = folder.parentNode.parentNode;
+  }
+  console.log("Download "+ path);
+  fetch("/download?file=" + path).then(res => {
+    if (res.ok) {
+      console.log("Download OK");
+    }
+  });
 }
 
 function deleteFile(evt) {
@@ -77,6 +93,7 @@ function createFileLine(li, file) {
   li.classList.add("file");
   const sp1 = document.createElement("span");
   sp1.classList.add("file-name");
+  sp1.addEventListener("click", downloadFile);
   sp1.appendChild(document.createTextNode(file.name));
   li.appendChild(sp1);
   const sp3 = document.createElement("span");

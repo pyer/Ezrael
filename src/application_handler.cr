@@ -1,13 +1,14 @@
 #
 require "http/server"
 require "./mime"
-require "./routes"
+require "./request/delete"
+require "./request/get"
 
 class ApplicationHandler
   include HTTP::Handler
 
   def initialize
-    @routes = Routes.new
+    @routes = Get.new
   end
 
   def call(context : HTTP::Server::Context)
@@ -16,9 +17,9 @@ class ApplicationHandler
       if (context.request.method == "GET" )
         key = context.request.path
         context.response.content_type = Mime.get_type(key)
-        context.response.puts(@routes.call_get(key))
+        context.response.puts(@routes.call_get(key, context.request.query))
       elsif (context.request.method == "DELETE" )
-        context.response.puts(@routes.call_delete(context.request.path))
+        context.response.puts(Delete.file(context.request.path))
       end
     rescue KeyError
       call_next(context)
